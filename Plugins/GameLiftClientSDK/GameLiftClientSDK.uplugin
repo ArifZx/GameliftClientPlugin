@@ -1,23 +1,23 @@
 {
-	"FileVersion": 3,
-	"Version": 1,
-	"VersionName": "1.7.242",
-	"FriendlyName": "GameLiftClientSDK",
-	"Description": "",
-	"Category": "Other",
-	"CreatedBy": "",
-	"CreatedByURL": "",
-	"DocsURL": "",
-	"MarketplaceURL": "",
-	"SupportURL": "",
-	"CanContainContent": true,
-	"IsBetaVersion": false,
-	"Installed": false,
-	"Modules": [
-		{
-			"Name": "GameLiftClientSDK",
-			"Type": "Runtime",
-			"LoadingPhase": "Default"
-		}
-	]
+  "FileVersion": 3,
+  "Version": 1,
+  "VersionName": "1.7.242",
+  "FriendlyName": "GameLiftClientSDK",
+  "Description": "",
+  "Category": "Other",
+  "CreatedBy": "Arif Budiman",
+  "CreatedByURL": "",
+  "DocsURL": "https://github.com/YetiTech-Studios/UE4GameLiftClientSDK",
+  "MarketplaceURL": "",
+  "SupportURL": "",
+  "CanContainContent": true,
+  "IsBetaVersion": false,
+  "Installed": false,
+  "Modules": [
+    {
+      "Name": "GameLiftClientSDK",
+      "Type": "Runtime",
+      "LoadingPhase": "Default"
+    }
+  ]
 }
