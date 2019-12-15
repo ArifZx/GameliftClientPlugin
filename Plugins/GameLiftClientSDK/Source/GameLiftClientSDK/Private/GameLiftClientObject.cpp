@@ -2,6 +2,8 @@
 
 
 #include "GameLiftClientObject.h"
+#include "Misc/FileHelper.h"
+#include "Misc/Paths.h"
 #if WITH_GAMELIFTCLIENTSDK
 #include "GameLiftClientGlobals.h"
 #include "GameLiftClientTypes.h"
@@ -10,6 +12,7 @@
 #include "aws/core/auth/AWSCredentials.h"
 #include "aws/gamelift/GameLiftClient.h"
 #endif
+
 
 void UGameLiftClientObject::Internal_InitGameLiftClientSDK(const FString& AccessKey, const FString& Secret, const FString& Region, bool bUsingGameLiftLocal, int32 LocalPort)
 {
@@ -36,11 +39,26 @@ void UGameLiftClientObject::Internal_InitGameLiftClientSDK(const FString& Access
 #endif
 }
 
+bool UGameLiftClientObject::LoadCredentialFile(FString FileName, FString & SaveText)
+{
+	LOG_NORMAL(FString::Printf(TEXT("Load credential from %s"), *(FPaths::GameDir() + FileName)));
+	return FFileHelper::LoadFileToString(SaveText, *(FPaths::GameDir() + FileName));
+}
+
 UGameLiftClientObject * UGameLiftClientObject::CreateGameLiftObject(const FString & AccessKey, const FString & Secret, const FString & Region, bool bUsingGameLiftLocal, int32 LocalPort)
 {
 #if WITH_GAMELIFTCLIENTSDK
 	UGameLiftClientObject* Proxy = NewObject<UGameLiftClientObject>();
 	Proxy->Internal_InitGameLiftClientSDK(AccessKey, Secret, Region, bUsingGameLiftLocal, LocalPort);
+	return Proxy;
+#endif
+	return nullptr;
+}
+
+UGameLiftClientObject * UGameLiftClientObject::GetGameLiftClient()
+{
+#if WITH_GAMELIFTCLIENTSDK
+	UGameLiftClientObject* Proxy = NewObject<UGameLiftClientObject>();
 	return Proxy;
 #endif
 	return nullptr;

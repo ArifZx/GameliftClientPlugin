@@ -16,13 +16,13 @@
 /**
  * 
  */
-UCLASS()
+UCLASS(BlueprintType)
 class GAMELIFTCLIENTSDK_API UGameLiftClientObject : public UObject
 {
 	GENERATED_BODY()
 	
 private:
-
+	
 #if WITH_GAMELIFTCLIENTSDK
 	Aws::GameLift::GameLiftClient* GameLiftClient;
 	bool bIsUsingGameLiftLocal;
@@ -31,6 +31,9 @@ private:
 	void Internal_InitGameLiftClientSDK(const FString& AccessKey, const FString& Secret, const FString& Region, bool bUsingGameLiftLocal, int32 LocalPort);
 
 public:
+
+	UFUNCTION(BlueprintCallable, Category = "GameLift Client Object")
+	static bool LoadCredentialFile(FString FileName, FString& SaveText);
 
 	/**
 	* public static UGameLiftClientObject::CreateGameLiftObject
@@ -43,7 +46,11 @@ public:
 	* @return [UGameLiftClientObject*] Returns UGameLiftClientObject*. Use this to create game sessions, player sessions etc.
 	**/
 	UFUNCTION(BlueprintCallable, Category = "GameLift Client Object")
-		static UGameLiftClientObject* CreateGameLiftObject(const FString& AccessKey, const FString& Secret, const FString& Region = "us-east-1", bool bUsingGameLiftLocal = false, int32 LocalPort = 9080);
+	static UGameLiftClientObject* CreateGameLiftObject(const FString& AccessKey, const FString& Secret, const FString& Region = "us-east-1", bool bUsingGameLiftLocal = false, int32 LocalPort = 9080);
+	
+	UFUNCTION(BlueprintCallable, Category = "GameLift Client Object")
+	static UGameLiftClientObject* GetGameLiftClient();
+	
 
 	/**
 	* public UGameLiftClientObject::CreateGameSession
