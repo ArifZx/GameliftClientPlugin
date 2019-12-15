@@ -1,0 +1,23 @@
+{
+	"FileVersion": 3,
+	"EngineAssociation": "{2153FFF1-4AEA-127A-5DC7-7CA2CB53B229}",
+	"Category": "",
+	"Description": "",
+	"Modules": [
+		{
+			"Name": "GameClient",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		}
+	],
+	"Plugins": [
+		{
+			"Name": "TestBP",
+			"Enabled": false
+		},
+		{
+			"Name": "TPS",
+			"Enabled": false
+		}
+	]
+}
