@@ -16,7 +16,6 @@
     - `aws-sdk-cpp-gamelift.lib` 
 
     to `ThirdParty/GameLiftClientSDK`
-- More instruction https://github.com/YetiTech-Studios/UE4GameLiftClientSDK
 - Generate Visual Studio Project Files
 - Build project
 
