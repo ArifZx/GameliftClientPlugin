@@ -46,8 +46,10 @@ public:
 		FOnCreateGameSessionFailed OnCreateGameSessionFailed;
 
 private:
+#if WITH_GAMELIFTCLIENTSDK
 	Aws::GameLift::GameLiftClient* GameLiftClient;
 	FGameLiftGameSessionConfig SessionConfig;
+#endif
 
 	bool bIsUsingGameLiftLocal;
 
