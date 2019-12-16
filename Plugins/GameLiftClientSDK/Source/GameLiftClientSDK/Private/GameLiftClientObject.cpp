@@ -39,12 +39,6 @@ void UGameLiftClientObject::Internal_InitGameLiftClientSDK(const FString& Access
 #endif
 }
 
-bool UGameLiftClientObject::LoadCredentialFile(FString FileName, FString & SaveText)
-{
-	LOG_NORMAL(FString::Printf(TEXT("Load credential from %s"), *(FPaths::GameDir() + FileName)));
-	return FFileHelper::LoadFileToString(SaveText, *(FPaths::GameDir() + FileName));
-}
-
 UGameLiftClientObject * UGameLiftClientObject::CreateGameLiftObject(const FString & AccessKey, const FString & Secret, const FString & Region, bool bUsingGameLiftLocal, int32 LocalPort)
 {
 #if WITH_GAMELIFTCLIENTSDK

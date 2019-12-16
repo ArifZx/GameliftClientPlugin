@@ -32,9 +32,6 @@ private:
 
 public:
 
-	UFUNCTION(BlueprintCallable, Category = "GameLift Client Object")
-	static bool LoadCredentialFile(FString FileName, FString& SaveText);
-
 	/**
 	* public static UGameLiftClientObject::CreateGameLiftObject
 	* Creates a GameLiftClientObject. This function must be called first before accessing any GameLift client functions.

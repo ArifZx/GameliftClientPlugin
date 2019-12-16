@@ -46,22 +46,21 @@ public class GameLiftClientSDK : ModuleRules
 
         PrivateIncludePaths.Add(Path.Combine(ModuleDirectory, "Private"));
 
-        string BaseDirectory = System.IO.Path.GetFullPath(System.IO.Path.Combine(ModuleDirectory, "..", ".."));
-        string SDKDirectory = System.IO.Path.Combine(BaseDirectory, "ThirdParty", "GameLiftClientSDK", Target.Platform.ToString());
-        string BinariesDirectory = System.IO.Path.Combine(BaseDirectory, "Binaries", Target.Platform.ToString());
+        string BaseDirectory = Path.GetFullPath(Path.Combine(ModuleDirectory, "..", ".."));
+        string SDKDirectory = Path.Combine(BaseDirectory, "ThirdParty", "GameLiftClientSDK", Target.Platform.ToString());
+        string BinariesDirectory = Path.Combine(BaseDirectory, "Binaries", Target.Platform.ToString());
 
         if (!Directory.Exists(BinariesDirectory))
         {
             Directory.CreateDirectory(BinariesDirectory);
         }
 
-        bool bHasGameLiftSDK = System.IO.Directory.Exists(SDKDirectory);
+        bool bHasGameLiftSDK = Directory.Exists(SDKDirectory);
 
         if (bHasGameLiftSDK)
         {
             PublicDefinitions.Add("WITH_GAMELIFTCLIENTSDK=1");
             PublicLibraryPaths.Add(SDKDirectory);
-
             InitiateSDK(SDKDirectory, BinariesDirectory);
         }
         else
@@ -69,7 +68,6 @@ public class GameLiftClientSDK : ModuleRules
             PublicDefinitions.Add("WITH_GAMELIFTCLIENTSDK=0");
         }
     }
-
 
     private bool InitiateSDK(string SDKDirectory, string BinariesDirectory)
     {
@@ -111,7 +109,6 @@ public class GameLiftClientSDK : ModuleRules
         string AWSCognitoIndentityDLLFile = Path.Combine(SDKDirectory, "aws-cpp-sdk-cognito-identity.dll");
         string AWSGameliftDLLFile = Path.Combine(SDKDirectory, "aws-cpp-sdk-gamelift.dll");
 
-
         if (File.Exists(AWSCoreDLLFile))
         {
             PublicDelayLoadDLLs.Add("aws-cpp-sdk-core.dll");
@@ -142,20 +139,20 @@ public class GameLiftClientSDK : ModuleRules
             throw new BuildException("aws-cpp-sdk-gamelift.dll not found. Expected in this location: " + AWSGameliftDLLFile);
         }
 
-        // Add to binaries
-        if (File.Exists(System.IO.Path.Combine(BinariesDirectory, "aws-cpp-sdk-core.dll")) == false)
-        {
-            File.Copy(System.IO.Path.Combine(SDKDirectory, "aws-cpp-sdk-core.dll"), System.IO.Path.Combine(BinariesDirectory, "aws-cpp-sdk-core.dll"));
-        }
+        // Copy all dll files to binaries
+        string[] files = Directory.GetFiles(SDKDirectory);
 
-        if (File.Exists(System.IO.Path.Combine(BinariesDirectory, "aws-cpp-sdk-cognito-identity.dll")) == false)
+        for(int i = 0; i != files.Length; ++i)
         {
-            File.Copy(System.IO.Path.Combine(SDKDirectory, "aws-cpp-sdk-cognito-identity.dll"), System.IO.Path.Combine(BinariesDirectory, "aws-cpp-sdk-cognito-identity.dll"));
-        }
-
-        if (File.Exists(System.IO.Path.Combine(BinariesDirectory, "aws-cpp-sdk-gamelift.dll")) == false)
-        {
-            File.Copy(System.IO.Path.Combine(SDKDirectory, "aws-cpp-sdk-gamelift.dll"), System.IO.Path.Combine(BinariesDirectory, "aws-cpp-sdk-gamelift.dll"));
+            string f = files[i];
+            if (Path.GetExtension(f).ToLower().Equals(".dll"))
+            {
+                string BinPath = Path.Combine(BinariesDirectory, Path.GetFileName(f));
+                if(!File.Exists(BinPath))
+                {
+                    File.Copy(f, BinPath);
+                }
+            }
         }
 
         return true;
