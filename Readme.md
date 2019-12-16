@@ -15,7 +15,7 @@
     - `aws-sdk-cpp-cognito-identity.lib` and 
     - `aws-sdk-cpp-gamelift.lib` 
 
-    to `ThirdParty/GameLiftClientSDK`
+    to `ThirdParty/GameLiftClientSDK/[Win64|Linux]`
 - Generate Visual Studio Project Files
 - Build project
 
